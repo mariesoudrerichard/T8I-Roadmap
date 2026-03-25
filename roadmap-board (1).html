@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 8 Impact — Roadmap 2026–2028 · Board</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FFF7EA;--navy:#122D5F;--slate:#5A698A;
+  --blue2:#7B8EAA;--blue3:#B0BDD0;--blue4:#D8E0EE;--blue5:#EEF1F7;--line:#C8D0DC;
+}
+body{background:var(--cream);font-family:'DM Sans',sans-serif;color:var(--navy);font-size:13px;min-height:100vh}
+button,input,select,textarea{font-family:inherit}
+.shell{display:flex;flex-direction:column;min-height:100vh}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--navy);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:46px;flex-shrink:0}
+.brand-wrap{display:flex;align-items:center;gap:10px}
+.logo-mark{width:26px;height:26px;border:1.5px solid rgba(255,255,255,.25);border-radius:5px;display:flex;align-items:center;justify-content:center}
+.logo-inner{width:9px;height:9px;background:var(--cream);border-radius:2px}
+.brand-name{font-size:11px;font-weight:600;color:white;letter-spacing:.06em}
+.brand-sub{font-size:8.5px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase}
+.nav-main{display:flex;gap:1px}
+.nbtn{padding:5px 14px;border-radius:4px;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;color:rgba(255,255,255,.45);border:none;background:transparent;transition:all .18s}
+.nbtn.active{background:rgba(255,255,255,.13);color:white}
+.nbtn:hover:not(.active){color:rgba(255,255,255,.75)}
+.sbtn{padding:5px 13px;border-radius:4px;font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.55);transition:all .18s}
+.sbtn:hover{color:white;border-color:rgba(255,255,255,.4)}
+.sbtn.primary{background:#1D7A5F;border-color:#1D7A5F;color:white}
+.save-ind{font-size:8.5px;color:rgba(255,255,255,.32);letter-spacing:.05em;transition:color .4s}
+.save-ind.ok{color:rgba(120,220,160,.8)}
+.view{display:none;flex:1;overflow:hidden}
+.view.active{display:flex;flex-direction:column}
+
+/* ── GARDE ── */
+#vg{padding:0}
+.garde-grid{display:grid;grid-template-columns:42% 58%;min-height:calc(100vh - 46px)}
+.g-left{background:var(--navy);color:white;padding:48px 44px;display:flex;flex-direction:column;justify-content:space-between}
+.g-eyebrow{font-size:8.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:36px}
+.g-headline{font-size:30px;font-weight:600;line-height:1.15;margin-bottom:14px;letter-spacing:-.02em}
+.g-headline em{color:rgba(255,255,255,.28);font-style:normal}
+.g-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.65;max-width:340px}
+.g-stats{display:flex;gap:28px;padding-top:28px;border-top:1px solid rgba(255,255,255,.1)}
+.g-stat{display:flex;flex-direction:column;gap:3px}
+.g-stat-label{font-size:8px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.g-stat-val{font-size:22px;font-weight:600}
+.g-stat-unit{font-size:9.5px;color:rgba(255,255,255,.35)}
+.g-right{padding:36px 40px;overflow-y:auto;display:flex;flex-direction:column;gap:18px}
+.g-section-label{font-size:8.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue2);margin-bottom:12px}
+.key-box{background:var(--navy);border-radius:10px;padding:20px 24px}
+.key-box-label{font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px}
+.key-text{font-size:15px;font-weight:600;color:white;line-height:1.45;width:100%;background:transparent;border:none;outline:none;resize:none}
+.conv-list{display:flex;flex-direction:column;gap:7px}
+.conv-item{display:flex;align-items:flex-start;gap:11px;padding:13px 15px;background:white;border-radius:7px;border:1px solid var(--blue4);position:relative}
+.conv-n{font-size:10px;font-weight:700;color:var(--blue3);min-width:18px;margin-top:2px}
+.conv-t{font-size:12.5px;font-weight:500;color:var(--navy);line-height:1.4;flex:1}
+.conv-reorder{display:none;flex-direction:column;gap:2px;margin-left:4px;flex-shrink:0}
+.conv-item:hover .conv-reorder{display:flex}
+.conv-rbtn{width:18px;height:18px;border-radius:50%;border:1px solid var(--blue3);background:white;cursor:pointer;font-size:9px;display:flex;align-items:center;justify-content:center;color:var(--blue2);transition:all .15s;padding:0}
+.conv-rbtn:hover{background:var(--navy);color:white;border-color:var(--navy)}
+.conv-rbtn:disabled{opacity:.25;cursor:default}
+.pr-strip{display:grid;gap:7px}
+.pr-card{border-radius:7px;padding:10px 12px;border-top:3px solid transparent}
+.pr-name{font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+.pr-val{font-size:10.5px;line-height:1.3}
+
+/* ── TIMELINE VISUELLE ── */
+#vt{padding:0;overflow:hidden}
+.tl-scroll{overflow:auto;height:100%}
+.tl-wrap{min-width:860px;padding-bottom:12px}
+
+/* En-tête sticky */
+.tl-sticky{position:sticky;top:0;z-index:20;background:var(--navy)}
+.tl-yr-row{display:flex;margin-left:164px;border-bottom:1px solid rgba(255,255,255,.1)}
+.tl-yr{flex:2;text-align:center;font-size:8.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);padding:6px 0;border-right:1px solid rgba(255,255,255,.08)}
+.tl-yr:last-child{border-right:none}
+.tl-sm-row{display:flex;margin-left:164px;border-bottom:2px solid rgba(255,255,255,.2)}
+.tl-sm{flex:1;text-align:center;font-size:8px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);padding:4px 0;border-right:1px dashed rgba(255,255,255,.08)}
+.tl-sm:last-child{border-right:none}
+
+/* Chaque pilier */
+.tl-prow{display:flex;border-bottom:1px solid var(--blue4);background:white;transition:background .12s}
+.tl-prow:nth-child(even){background:var(--cream)}
+.tl-prow:hover{filter:brightness(.97);cursor:pointer}
+.tl-plbl{width:164px;flex-shrink:0;padding:10px 14px 10px 12px;display:flex;flex-direction:column;justify-content:center;border-right:3px solid transparent}
+.tl-plbl-name{font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;line-height:1.3}
+.tl-plbl-sub{font-size:8px;color:var(--blue2);margin-top:2px}
+.tl-track{flex:1;position:relative;overflow:hidden}
+
+/* Grille de fond du track */
+.tl-grid{position:absolute;inset:0;display:flex;pointer-events:none}
+.tl-gcol{flex:1;border-right:1px dashed var(--blue4)}
+.tl-gcol:nth-child(2),.tl-gcol:nth-child(4){border-right:1px solid var(--line)}
+.tl-gcol:last-child{border-right:none}
+
+/* Barre de durée (span) */
+.tl-bar{position:absolute;height:4px;border-radius:2px;top:50%;transform:translateY(-50%);pointer-events:none;opacity:.22}
+
+/* Jalons dans le track : colonnes flexibles */
+.tl-cols{position:relative;display:flex;height:100%;z-index:2}
+.tl-col{flex:1;display:flex;flex-direction:column;justify-content:center;gap:3px;padding:5px 3px}
+.tl-marker{display:flex;align-items:center;gap:3px;padding:2px 5px;border-radius:3px;border-width:1px;border-style:solid;font-size:8px;font-weight:500;line-height:1.3;white-space:normal;word-break:break-word}
+.tl-marker.plan{background:#E8ECF5;border-color:#B0BDD0;color:#122D5F}
+.tl-marker.cible{background:#FFF7EA;border-color:#5A698A;border-style:dashed;color:#122D5F}
+.tl-marker.ip{background:#EDE8F5;border-color:#A89ED0;color:#3A2F6A}
+.tl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.tl-dot.ip{border-radius:1px;transform:rotate(45deg)}
+
+/* Légende */
+.tl-legend{display:flex;gap:16px;padding:9px 18px;border-top:1px solid var(--line);align-items:center;flex-wrap:wrap;flex-shrink:0;background:var(--cream)}
+.tl-leg-chip{padding:2px 8px;border-radius:3px;font-size:8.5px;font-weight:600;border-width:1px;border-style:solid;display:inline-flex;align-items:center;gap:4px}
+
+/* ── SYNTHÈSE BOARD ── */
+#vsum{overflow-y:auto;flex:1}
+.sum-wrap{padding:24px 32px;max-width:1200px;margin:0 auto}
+
+/* Hero */
+.sum-hero{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;padding-bottom:18px;border-bottom:2px solid var(--navy);gap:24px}
+.sum-hero-left{flex:1}
+.sum-eyebrow{font-size:8px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--blue2);margin-bottom:7px}
+.sum-big-title{font-size:22px;font-weight:600;color:var(--navy);letter-spacing:-.02em;line-height:1.1;margin-bottom:7px}
+.sum-tagline{font-size:11.5px;color:var(--slate);line-height:1.55;max-width:520px}
+.sum-stats-strip{display:flex;gap:18px;flex-shrink:0;align-items:center;padding:14px 20px;background:var(--navy);border-radius:10px}
+.sum-stat{text-align:center}
+.sum-stat-v{font-size:22px;font-weight:600;color:white;line-height:1}
+.sum-stat-l{font-size:7.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:3px}
+.sum-stat-div{width:1px;height:28px;background:rgba(255,255,255,.12)}
+
+/* KPI cards (venant du Tableau) */
+.kpi-strip{display:grid;gap:8px;margin-bottom:20px}
+.kpi-card{background:white;border:1px solid var(--blue4);border-radius:8px;padding:11px 14px;cursor:pointer;transition:box-shadow .18s;border-top-width:3px}
+.kpi-card:hover{box-shadow:0 2px 10px rgba(18,45,95,.1)}
+.kpi-lbl{font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue2);margin-bottom:3px}
+.kpi-ttl{font-size:11.5px;font-weight:600;color:var(--navy);margin-bottom:2px}
+.kpi-det{font-size:9px;color:var(--blue2)}
+.kpi-bar{margin-top:7px;height:3px;background:var(--blue5);border-radius:2px}
+.kpi-fill{height:100%;border-radius:2px}
+
+/* Table */
+.sum-tc{overflow-x:auto}
+.sum-table{width:100%;border-collapse:collapse;min-width:820px}
+.sum-table thead tr:first-child th{background:var(--navy);color:white;padding:9px 12px;font-size:8.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.sum-table thead tr:first-child th:first-child{background:#0c2148;text-align:left;width:164px}
+.sum-th-year{text-align:center;border-right:1px solid rgba(255,255,255,.12)}
+.sum-th-year:last-child{border-right:none}
+.sum-table thead tr:nth-child(2) th{background:#1a3d7c;color:rgba(255,255,255,.6);padding:5px 10px;font-size:8px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-align:center;border-right:1px dashed rgba(255,255,255,.13)}
+.sum-table thead tr:nth-child(2) th:first-child{background:#0c2148}
+.sum-table thead tr:nth-child(2) th:last-child{border-right:none}
+.sum-row-even{border-bottom:1px solid var(--blue4);background:white}
+.sum-row-odd{border-bottom:1px solid var(--blue4);background:var(--cream)}
+.sum-row-even:last-child,.sum-row-odd:last-child{border-bottom:2px solid var(--navy)}
+.sum-td-label{padding:11px 12px;vertical-align:middle;border-right:2px solid var(--line);min-width:164px;border-left:4px solid transparent}
+.sum-td-label-name{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:2px;line-height:1.3}
+.sum-td-label-sub{font-size:8.5px;color:var(--slate)}
+.sum-td-cell{padding:6px 7px;vertical-align:top;border-right:1px dashed var(--blue4);min-width:108px}
+.sum-td-cell:nth-child(3),.sum-td-cell:nth-child(5){border-right:1px solid var(--line)}
+.sum-td-cell:last-child{border-right:none}
+.sum-chips{display:flex;flex-direction:column;gap:3px}
+.sc-chip{display:flex;align-items:flex-start;gap:5px;padding:4px 7px;border-radius:4px;border-width:1px;border-style:solid}
+.sc-chip-icon{flex-shrink:0;font-size:7px;margin-top:2px}
+.sc-chip-text{font-size:8.5px;font-weight:500;line-height:1.3;flex:1}
+.sc-chip.plan{background:#E8ECF5;border-color:#B0BDD0;color:#122D5F}
+.sc-chip.cible{background:#FFF7EA;border-color:#5A698A;border-style:dashed;color:#122D5F}
+.sc-chip.ip{background:#EDE8F5;border-color:#A89ED0;color:#3A2F6A}
+.sum-legend{display:flex;gap:20px;padding:14px 0 4px;border-top:1px solid var(--line);flex-wrap:wrap;margin-top:14px;align-items:center}
+.sum-leg-item{display:flex;align-items:center;gap:7px;font-size:9.5px;color:var(--slate)}
+.sum-leg-chip{padding:2px 8px;border-radius:3px;font-size:8.5px;font-weight:500;border-width:1px;border-style:solid}
+
+/* ── BACK OFFICE ── */
+#vbo{padding:18px 24px;flex-direction:column;overflow-y:auto;gap:0}
+.bo-h h2{font-size:17px;font-weight:600;margin-bottom:4px}
+.bo-h p{font-size:11.5px;color:var(--blue2)}
+.bo-tabs{display:flex;gap:2px;border-bottom:1.5px solid var(--line);margin:16px 0 18px}
+.bo-tab{padding:7px 16px;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;color:var(--blue2);border:none;background:transparent;border-bottom:2.5px solid transparent;margin-bottom:-1.5px;transition:all .18s}
+.bo-tab.active{color:var(--navy);border-bottom-color:var(--navy)}
+.bo-panel{display:none}
+.bo-panel.active{display:block}
+.order-hint{font-size:11px;color:var(--blue2);margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.drag-list{display:flex;flex-direction:column;gap:8px;max-width:620px}
+.drag-item{display:flex;align-items:center;gap:12px;background:white;border:1.5px solid var(--blue4);border-radius:9px;padding:10px 14px;cursor:grab;user-select:none;transition:all .15s;border-left-width:4px}
+.drag-item:active{cursor:grabbing}
+.drag-item.dragging{opacity:.35;transform:scale(.98)}
+.drag-item.drag-over{border-color:var(--navy)!important;box-shadow:0 0 0 2px rgba(18,45,95,.15)}
+.drag-handle{color:var(--blue3);font-size:18px;cursor:grab;flex-shrink:0}
+.drag-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.pilier-name-inp{width:100%;border:none;border-bottom:1.5px dashed var(--blue4);background:transparent;font-size:13px;font-weight:600;outline:none;padding:1px 0;transition:border-color .15s}
+.pilier-name-inp:focus{border-bottom-color:var(--navy)}
+.pilier-sub-inp{width:100%;border:none;border-bottom:1px dashed transparent;background:transparent;font-size:10px;color:var(--blue2);outline:none;padding:1px 0;transition:border-color .15s}
+.pilier-sub-inp:focus{border-bottom-color:var(--blue3)}
+.add-pilier-btn{display:flex;align-items:center;gap:8px;padding:10px 16px;border:1.5px dashed var(--blue3);border-radius:8px;background:transparent;cursor:pointer;font-size:11px;font-weight:500;color:var(--blue2);transition:all .18s;margin-top:10px;max-width:620px}
+.add-pilier-btn:hover{border-color:var(--navy);color:var(--navy)}
+.psel-row{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.psel{padding:5px 13px;border-radius:20px;font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border:1.5px solid transparent;background:white;transition:all .18s}
+.jal-list{display:flex;flex-direction:column;gap:7px;max-width:760px}
+.jal-item{display:flex;align-items:stretch;background:white;border:1px solid var(--blue4);border-radius:9px;overflow:hidden;border-left-width:4px;transition:all .15s}
+.jal-item.dragging{opacity:.35}
+.jal-item.drag-over{outline:2px solid var(--navy);outline-offset:1px}
+.jal-drag{display:flex;align-items:center;padding:0 10px;color:var(--blue3);cursor:grab;font-size:15px;border-right:1px solid var(--blue5);flex-shrink:0}
+.jal-fields{flex:1;display:grid;grid-template-columns:1fr 130px 130px;align-items:center}
+.jf{padding:9px 12px;border-right:1px solid var(--blue5)}
+.jf:last-child{border-right:none}
+.jf-l{font-size:8px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue3);margin-bottom:3px}
+.jf input,.jf select{width:100%;border:none;background:transparent;font-size:11px;color:var(--navy);outline:none}
+.jf input:focus{border-bottom:1.5px solid var(--navy)}
+.jal-del{display:flex;align-items:center;padding:0 12px;cursor:pointer;color:var(--blue3);font-size:18px;background:transparent;border:none;transition:color .15s;flex-shrink:0}
+.jal-del:hover{color:#8A2A1D}
+.add-jal-btn{display:flex;align-items:center;gap:7px;padding:9px 14px;border:1.5px dashed var(--blue3);border-radius:8px;background:transparent;cursor:pointer;font-size:11px;font-weight:500;color:var(--blue2);transition:all .18s;margin-top:10px;max-width:760px}
+.add-jal-btn:hover{border-color:var(--navy);color:var(--navy)}
+.msg-box{background:white;border:1px solid var(--blue4);border-radius:9px;padding:18px;margin-bottom:14px;max-width:700px}
+.msg-lbl{font-size:8.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--blue2);margin-bottom:9px}
+.msg-inp{width:100%;border:1.5px solid var(--blue4);border-radius:5px;padding:9px 12px;font-size:14px;font-weight:600;color:var(--navy);background:var(--cream);outline:none;resize:none;min-height:64px;line-height:1.4}
+.msg-inp:focus{border-color:var(--navy)}
+.conv-edit-row{display:flex;align-items:center;gap:9px;background:white;border:1px solid var(--blue4);border-radius:7px;padding:9px 13px;margin-bottom:7px;max-width:700px}
+.conv-badge{width:20px;height:20px;border-radius:50%;background:var(--blue5);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;color:var(--blue2);flex-shrink:0}
+.conv-inp{flex:1;border:none;border-bottom:1.5px dashed var(--blue3);background:transparent;font-size:12.5px;font-weight:500;color:var(--navy);outline:none;padding:2px 0}
+.conv-inp:focus{border-bottom-color:var(--navy)}
+.backup-box{background:var(--blue5);border:1.5px solid var(--blue4);border-radius:9px;padding:14px 18px;max-width:700px;margin-top:24px}
+.backup-title{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue2);margin-bottom:10px}
+.bk-btn{padding:6px 14px;border-radius:5px;font-size:10px;font-weight:600;cursor:pointer;border:1.5px solid var(--line);background:white;color:var(--navy);transition:all .15s}
+.bk-btn:hover{border-color:var(--navy)}
+.bk-btn.red{border-color:rgba(180,40,40,.3);color:#8A2A1D}
+.bk-btn.red:hover{background:#fdf0ee;border-color:#8A2A1D}
+
+/* ── OVERLAY ── */
+.overlay{position:fixed;top:0;right:0;bottom:0;width:290px;background:var(--cream);border-left:2px solid var(--navy);z-index:300;padding:18px;overflow-y:auto;transform:translateX(100%);transition:transform .25s ease;box-shadow:-4px 0 18px rgba(18,45,95,.1)}
+.overlay.open{transform:translateX(0)}
+.ov-close{float:right;background:transparent;border:1px solid var(--line);color:var(--slate);cursor:pointer;font-size:11px;padding:2px 9px;border-radius:3px;font-weight:600}
+.ov-title{font-size:14px;font-weight:600;margin:26px 0 3px}
+.ov-sub{font-size:8.5px;color:var(--blue2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:13px}
+.ov-ph{margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid var(--blue5)}
+.ov-ph:last-child{border-bottom:none}
+.ov-sem{font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue2);margin-bottom:4px}
+.ov-item{font-size:11px;padding:2px 0 2px 9px;border-left:2px solid var(--blue4);margin-bottom:2px;line-height:1.4}
+.footer{padding:7px 24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue3);background:var(--cream);flex-shrink:0}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--navy);color:white;padding:9px 18px;border-radius:7px;font-size:11.5px;font-weight:500;opacity:0;transform:translateY(6px);transition:all .25s;z-index:600;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* ── LECTURE SEULE ── */
+.conv-item:hover .conv-reorder{display:none!important}
+input,select,textarea{pointer-events:none!important;cursor:default!important;user-select:text!important}
+[contenteditable]{pointer-events:none!important;cursor:default!important}
+#vbo,#vt{display:none!important}
+</style>
+</head>
+<body>
+<div class="shell">
+<div class="topbar">
+  <div class="brand-wrap">
+    <div class="logo-mark"><div class="logo-inner"></div></div>
+    <div><div class="brand-name">The 8 Impact</div><div class="brand-sub">Feuille de Route 2026–2028</div></div>
+  </div>
+  <div class="nav-main">
+    <button class="nbtn active" onclick="showView('g')">Présentation</button>
+    
+    <button class="nbtn" onclick="showView('sum')">Synthèse Board</button>
+    
+  </div>
+  
+</div>
+
+<!-- GARDE -->
+<div class="view active" id="vg">
+  <div class="garde-grid">
+    <div class="g-left">
+      <div>
+        <div class="g-eyebrow">Board Presentation · Confidentiel · 2025</div>
+        <div class="g-headline">Feuille de Route<br><em>Stratégique</em><br>2026–2028</div>
+        <div class="g-desc" id="g-desc"></div>
+      </div>
+      <div class="g-stats">
+        <div class="g-stat"><div class="g-stat-label">Piliers</div><div class="g-stat-val" id="meta-p">7</div><div class="g-stat-unit">axes</div></div>
+        <div class="g-stat"><div class="g-stat-label">Jalons</div><div class="g-stat-val" id="meta-j">0</div><div class="g-stat-unit">planifiés</div></div>
+        <div class="g-stat"><div class="g-stat-label">Horizon</div><div class="g-stat-val">3</div><div class="g-stat-unit">années</div></div>
+        <div class="g-stat"><div class="g-stat-label">Brevets</div><div class="g-stat-val" id="meta-ip">0</div><div class="g-stat-unit">IP</div></div>
+      </div>
+    </div>
+    <div class="g-right">
+      <div>
+        <div class="g-section-label">Ce que le Board doit retenir</div>
+        <div class="key-box"><div class="key-box-label">Message central</div>
+          <textarea id="key-msg" class="key-text" rows="3" oninput="S.keyMsg=this.value;autosave()"></textarea>
+        </div>
+      </div>
+      <div>
+        <div class="g-section-label">Nos convictions <span style="font-size:8px;font-weight:400;color:var(--blue3);letter-spacing:0;text-transform:none;margin-left:6px">— survoler pour réordonner</span></div>
+        <div class="conv-list" id="conv-list"></div>
+      </div>
+      <div>
+        <div class="g-section-label">Les piliers en un coup d'œil</div>
+        <div class="pr-strip" id="pr-strip"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="view" id="vt">
+  <div class="tl-scroll">
+    <div class="tl-wrap">
+      <div class="tl-sticky">
+        <div class="tl-yr-row">
+          <div class="tl-yr">2026</div><div class="tl-yr">2027</div><div class="tl-yr">2028</div>
+        </div>
+        <div class="tl-sm-row">
+          <div class="tl-sm">S1</div><div class="tl-sm">S2</div>
+          <div class="tl-sm">S1</div><div class="tl-sm">S2</div>
+          <div class="tl-sm">S1</div><div class="tl-sm">S2</div>
+        </div>
+      </div>
+      <div id="tl-body"></div>
+    </div>
+  </div>
+  <div class="tl-legend">
+    <span class="tl-leg-chip" style="background:#E8ECF5;border-color:#B0BDD0;color:#122D5F">● Planifié</span>
+    <span class="tl-leg-chip" style="background:#FFF7EA;border-color:#5A698A;border-style:dashed;color:#122D5F">○ Cible</span>
+    <span class="tl-leg-chip" style="background:#EDE8F5;border-color:#A89ED0;color:#3A2F6A">◆ IP / Brevet</span>
+    <span style="margin-left:auto;font-size:9px;color:var(--blue3)">Cliquer sur un pilier pour le détail →</span>
+  </div>
+</div>
+
+<!-- SYNTHÈSE BOARD -->
+<div class="view" id="vsum">
+  <div class="sum-wrap" id="sum-wrap"></div>
+</div>
+
+<!-- BACK OFFICE -->
+<div class="view" id="vbo">
+  <div class="bo-h"><h2>Back Office</h2><p>Renommez les piliers · Réorganisez · Éditez les jalons · Messages</p></div>
+  <div class="bo-tabs">
+    <button class="bo-tab active" onclick="boTab('order')">Ordre des piliers</button>
+    <button class="bo-tab" onclick="boTab('jalons')">Jalons</button>
+    <button class="bo-tab" onclick="boTab('messages')">Messages</button>
+  </div>
+  <div class="bo-panel active" id="bo-order">
+    <div class="order-hint"><span style="font-size:18px">⠿</span> Glissez pour réordonner · Éditez le nom directement</div>
+    <div class="drag-list" id="drag-list"></div>
+    <button class="add-pilier-btn" onclick="addPilier()"><span style="font-size:18px;line-height:1">+</span> Ajouter un pilier</button>
+    <div class="backup-box">
+      <div class="backup-title">💾 Sauvegarde automatique active</div>
+      <div style="font-size:10.5px;color:var(--blue2);margin-bottom:10px;line-height:1.5">
+        Chaque modification est sauvegardée instantanément dans ce navigateur.<br>
+        Exportez le JSON pour partager vos données avec Claude.
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="bk-btn" onclick="exportBackup()">⬇ Exporter (.json)</button>
+        <button class="bk-btn" onclick="document.getElementById('imp').click()">⬆ Importer</button>
+        <button class="bk-btn red" onclick="resetData()">↺ Données par défaut</button>
+        <input type="file" id="imp" accept=".json" style="display:none" onchange="importBackup(event)">
+      </div>
+    </div>
+  </div>
+  <div class="bo-panel" id="bo-jalons">
+    <div class="psel-row" id="psel-row"></div>
+    <div class="jal-list" id="jal-list"></div>
+    <button class="add-jal-btn" onclick="addJalon()"><span style="font-size:18px;line-height:1">+</span> Ajouter un jalon</button>
+  </div>
+  <div class="bo-panel" id="bo-messages">
+    <div class="msg-box"><div class="msg-lbl">Message central</div>
+      <textarea class="msg-inp" id="bo-msg" rows="3" oninput="S.keyMsg=this.value;document.getElementById('key-msg').value=this.value;autosave()"></textarea>
+    </div>
+    <div class="msg-box"><div class="msg-lbl">Convictions Board</div>
+      <div id="bo-convs"></div>
+      <button class="add-jal-btn" onclick="addConv()" style="margin-top:8px">+ Ajouter une conviction</button>
+    </div>
+    <div class="msg-box"><div class="msg-lbl">Sous-titre page de garde</div>
+      <textarea class="msg-inp" id="bo-desc" rows="2" oninput="S.desc=this.value;document.getElementById('g-desc').textContent=this.value;autosave()"></textarea>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <button class="ov-close" onclick="closeOv()">fermer ×</button>
+  <div id="ov-content"></div>
+</div>
+<div class="footer">
+  <span>The 8 Impact — Confidentiel</span>
+  <span id="fdate"></span>
+  <span id="last-save">Board · 2025</span>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const SEMS=['2026-S1','2026-S2','2027-S1','2027-S2','2028-S1','2028-S2'];
+const LS_KEY='the8impact_roadmap_v6';
+
+// Couleurs spécifiques par pilier pour la Synthèse Board (fond label)
+const PILIER_LABEL_BG={
+  rd:             {bg:'#E8E6F5',txt:'#4A3F8A'},   // violet doux — R&D Innovation
+  p1774281045243: {bg:'#D4EDDF',txt:'#1A6040'},   // vert mi-clair — R&D certif
+  p1774281019578: {bg:'#E8E4F2',txt:'#5A3F7A'},   // prune doux — IP/brevets
+  ind:            {bg:'#EDE0CC',txt:'#6B4F12'},   // marron clair — Industrie
+  mkt:            {bg:'#F5DADA',txt:'#7A2020'},   // rose clair — Marketing
+  prod:           {bg:'#DCEEE6',txt:'#1A6040'},   // vert clair (+ clair que certif) — Produit
+  com:            {bg:'#C8D8EE',txt:'#1A3F78'},   // bleu soutenu — Commercialisation
+};
+
+const DATA={"keyMsg": "Phasage rigoureux des opérations et priorisation des investissements pour transformer notre avance scientifique en traction commerciale, et renforcer durablement nos barrières à l'entrée.", "desc": "Chaque action est séquencée, chaque investissement est au service de la croissance du chiffre d'affaires.", "convictions": ["La R&D est la fondation : 3 matières en cours de certification, 2 brevets matières planifiés.", "Le déploiement commercial est séquencé — Europe d'abord, Asie ensuite, au rythme des certifications.", "L'industrialisation : la ligne de production sera opérationnelle avant le lancement commercial. 2 brevets procédés", "Une prise de parole qui ancre notre avancée scientifique."], "order": ["rd", "p1774281045243", "p1774281019578", "ind", "mkt", "prod", "com"], "piliers": {"rd": {"name": "R&D Innovation", "sub": "Matière · IP", "color": "#4A3F8A", "colorL": "#ECEAF8", "jalons": [{"id": "rd4", "name": "Rubber TPR Stabilisation", "sem": "2026-S2", "type": "planifié"}, {"id": "rd1", "name": "Rubber TPR Finalisation", "sem": "2026-S1", "type": "planifié"}, {"id": "rd7", "name": "Certification Rubber TPR", "sem": "2027-S1", "type": "cible"}, {"id": "rd2", "name": "EVA formulations", "sem": "2026-S1", "type": "planifié"}, {"id": "rd14", "name": "EVA stabilisation", "sem": "2027-S1", "type": "planifié"}, {"id": "rd10", "name": "EVA certification", "sem": "2027-S2", "type": "cible"}, {"id": "rd3", "name": "Rubber PERF. Innovation", "sem": "2026-S1", "type": "planifié"}, {"id": "rd9", "name": "TPV Étude intégration", "sem": "2027-S1", "type": "planifié"}, {"id": "rd12", "name": "TPV Résultats", "sem": "2028-S1", "type": "planifié"}]}, "prod": {"name": "Produit", "sub": "Prototypage · Segments", "color": "#1D7A5F", "colorL": "#E0F2EC", "jalons": [{"id": "p1", "name": "Prototype OKTARA rubber LS", "sem": "2026-S1", "type": "cible"}, {"id": "p3", "name": "Prototype Rubber TPR", "sem": "2026-S2", "type": "cible"}, {"id": "p5", "name": "Prototype OKTARA rubber PERF.", "sem": "2027-S1", "type": "cible"}, {"id": "p7", "name": "Prototype OKTRACE EVA PERF.", "sem": "2027-S2", "type": "cible"}]}, "ind": {"name": "Industrie", "sub": "Scale-up · GRS", "color": "#8A6A1A", "colorL": "#F5EDD8", "jalons": [{"id": "i1", "name": "SCALE UP Pré-commande ligne", "sem": "2026-S2", "type": "planifié"}, {"id": "i6", "name": "SCALE UP Finalisation installation", "sem": "2027-S2", "type": "cible"}, {"id": "i3", "name": "SCALE UP Livraison ligne", "sem": "2027-S1", "type": "planifié"}, {"id": "i5", "name": "Certification GRS", "sem": "2027-S2", "type": "cible"}]}, "mkt": {"name": "Marketing", "sub": "Pivot B2B → B2C", "color": "#8A2A1D", "colorL": "#F5E0DC", "jalons": [{"id": "m2", "name": "Nouveau discours marque", "sem": "2026-S1", "type": "cible"}, {"id": "m3", "name": "Nouveau site + PLV", "sem": "2026-S2", "type": "cible"}, {"id": "m4", "name": "Tests influenceurs", "sem": "2027-S1", "type": "planifié"}, {"id": "m5", "name": "Campagnes influenceurs", "sem": "2027-S2", "type": "planifié"}, {"id": "m6", "name": "Lancement salons B2C", "sem": "2027-S2", "type": "cible"}]}, "com": {"name": "Commercialisation", "sub": "Europe · Asie", "color": "#1A5A8A", "colorL": "#DCF0F5", "jalons": [{"id": "c1", "name": "Pré-commercial Europe", "sem": "2026-S1", "type": "planifié"}, {"id": "c2", "name": "Déploiement organisation Europe", "sem": "2026-S2", "type": "cible"}, {"id": "c3", "name": "Pré-commercial Asie (via FFG)", "sem": "2026-S2", "type": "planifié"}, {"id": "c4", "name": "Déploiement org. Asie", "sem": "2027-S2", "type": "cible"}, {"id": "c5", "name": "Parité prix rubber", "sem": "2027-S1", "type": "cible"}, {"id": "c6", "name": "Parité prix EVA", "sem": "2028-S1", "type": "cible"}]}, "p1774281019578": {"name": "IP / brevets", "sub": "Protection industrielle", "color": "#5A3F7A", "colorL": "#EAE5F5", "jalons": [{"id": "p17742810195781774436860709", "name": "Micronisation Patent / procédé", "sem": "2028-S1", "type": "ip"}, {"id": "ip1", "name": "EVA Patent vis / procédé", "sem": "2026-S2", "type": "ip"}, {"id": "ip2", "name": "EVA formulation DOW Soleau", "sem": "2026-S1", "type": "ip"}, {"id": "ip5", "name": "Rubber PERF. formulation brevet", "sem": "2027-S1", "type": "ip"}, {"id": "ip3", "name": "EVA formulation DOW brevet", "sem": "2028-S1", "type": "ip"}, {"id": "ip4", "name": "Dépôt marques OKTARA / OKTRACE", "sem": "2026-S1", "type": "ip"}]}, "p1774281045243": {"name": "R&D certification", "sub": "Qualité · Contrôle", "color": "#1A6B7A", "colorL": "#D8EEF2", "jalons": [{"id": "rc1", "name": "Homogénéisation (tous gisements)", "sem": "2026-S2", "type": "planifié"}, {"id": "rc2", "name": "Décision taille critique batch", "sem": "2027-S1", "type": "cible"}, {"id": "rc3", "name": "Certification contrôle qualité BV.", "sem": "2027-S2", "type": "cible"}]}}};
+
+let S,curPilier='rd',dragSrcPilier=null,jalDragSrc=null,autoT=null;
+
+// ── PERSISTENCE ──
+function loadData(){
+  try{
+    const raw=localStorage.getItem(LS_KEY);
+    if(raw){
+      S=JSON.parse(raw);
+      // ensure jalons array exists on all piliers
+      Object.values(S.piliers).forEach(p=>{if(!p.jalons)p.jalons=[];});
+      setSaveLabel('ok');return true;
+    }
+  }catch(e){console.warn(e);}
+  return false;
+}
+function persist(){return;/* ro */
+
+  try{
+    localStorage.setItem(LS_KEY,JSON.stringify(S));
+    const t=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    document.getElementById('last-save').textContent='Sauvegardé à '+t;
+    setSaveLabel('ok');
+  }catch(e){console.warn('LocalStorage failed:',e);toast('⚠ Sauvegarde échouée — espace insuffisant ?');}
+}
+function setSaveLabel(state){
+  const el=document.getElementById('save-ind');
+  if(state==='pending'){el.textContent='● en cours…';el.style.color='rgba(255,200,80,.8)';}
+  else{el.textContent='● sauvegardé';el.classList.add('ok');setTimeout(()=>el.classList.remove('ok'),2200);}
+}
+function autosave(){return;/* ro */
+
+  setSaveLabel('pending');
+  clearTimeout(autoT);
+  autoT=setTimeout(()=>persist(),700);
+}
+function exportBackup(){
+  const b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
+  const u=URL.createObjectURL(b);const a=document.createElement('a');
+  a.href=u;a.download='the8impact_roadmap_backup_'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();URL.revokeObjectURL(u);toast('Exporté ✓');
+}
+function importBackup(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{
+      const p=JSON.parse(ev.target.result);
+      if(!p.piliers||!p.order)throw 0;
+      S=p;Object.values(S.piliers).forEach(pl=>{if(!pl.jalons)pl.jalons=[];});
+      persist();renderAll(); showView("g");renderDragList();toast('Importé ✓');
+    }catch(e){toast('Fichier invalide');}
+  };
+  r.readAsText(f);e.target.value='';
+}
+function resetData(){
+  if(!confirm('Remettre les données par défaut ?'))return;
+  S=JSON.parse(JSON.stringify(DATA));persist();renderAll();renderDragList();toast('Données remises par défaut');
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('fdate').textContent=new Date().toLocaleDateString('fr-FR',{year:'numeric',month:'long',day:'numeric'});
+  if(!loadData()){S=JSON.parse(JSON.stringify(DATA));persist();}
+  if(!S.piliers[curPilier])curPilier=S.order[0];
+  renderAll();
+});
+
+function recap(k){const p=S.piliers[k];const ip=p.jalons.filter(j=>j.type==='ip').length;return ip>0?`${p.jalons.length} jalons · ${ip} brevets`:`${p.jalons.length} jalons`;}
+function renderAll(){renderGarde();renderTimeline();renderSynthese();}
+
+// ── GARDE ──
+function renderGarde(){
+  document.getElementById('key-msg').value=S.keyMsg;
+  document.getElementById('g-desc').textContent=S.desc;
+  const tj=S.order.reduce((a,k)=>a+S.piliers[k].jalons.length,0);
+  const tip=S.order.reduce((a,k)=>a+S.piliers[k].jalons.filter(j=>j.type==='ip').length,0);
+  document.getElementById('meta-p').textContent=S.order.length;
+  document.getElementById('meta-j').textContent=tj;
+  document.getElementById('meta-ip').textContent=tip;
+  document.getElementById('conv-list').innerHTML=S.convictions.map((c,i)=>`
+    <div class="conv-item">
+      <div class="conv-n">${String(i+1).padStart(2,'0')}</div>
+      <div class="conv-t">${c}</div>
+      <div class="conv-reorder">
+        <button class="conv-rbtn" onclick="convMove(${i},-1)" ${i===0?'disabled':''}>▲</button>
+        <button class="conv-rbtn" onclick="convMove(${i},1)" ${i===S.convictions.length-1?'disabled':''}>▼</button>
+      </div>
+    </div>`).join('');
+  const ps=document.getElementById('pr-strip');
+  ps.style.gridTemplateColumns=`repeat(${S.order.length},1fr)`;
+  ps.innerHTML=S.order.map(k=>{const p=S.piliers[k];return`
+    <div class="pr-card" style="background:${p.colorL};border-top-color:${p.color}">
+      <div class="pr-name" style="color:${p.color}">${p.name}</div>
+      <div class="pr-val" style="color:${p.color}">${recap(k)}</div>
+    </div>`;}).join('');
+}
+function convMove(i,dir){
+  const j=i+dir;if(j<0||j>=S.convictions.length)return;
+  [S.convictions[i],S.convictions[j]]=[S.convictions[j],S.convictions[i]];
+  renderGarde();autosave();
+  if(document.getElementById('bo-messages').classList.contains('active'))renderMessages();
+}
+
+// ── TIMELINE CLASSIQUE : ligne + points, sans superposition ──
+function renderTimeline(){
+  const LABEL_H=30; // px réservé pour les labels (haut ET bas)
+  const DOT_R=5;
+  const LINE_Y=LABEL_H+DOT_R+4;
+  const ROW_H=LINE_Y*2+DOT_R+4;
+  // Centre X de chaque semestre en %
+  const SX=SEMS.map((_,i)=>((i+0.5)/6*100));
+  // décalage horizontal quand plusieurs jalons dans le même semestre
+  const SPREAD=3.5; // % d'écart entre dots du même semestre
+
+  let html='';
+  S.order.forEach((key,ri)=>{
+    const p=S.piliers[key];
+    const bySem={};SEMS.forEach(s=>bySem[s]=[]);
+    p.jalons.forEach(j=>{if(bySem[j.sem])bySem[j.sem].push(j);});
+
+    const gridHtml=`<div class="tl-grid">${SEMS.map(()=>`<div class="tl-gcol"></div>`).join('')}</div>`;
+    const lineHtml=`<div style="position:absolute;left:0;right:0;top:${LINE_Y}px;height:1.5px;background:${p.color};opacity:.3;pointer-events:none"></div>`;
+
+    let dotsHtml='';
+    SEMS.forEach((sem,si)=>{
+      const jals=bySem[sem];
+      if(!jals.length) return;
+      const n=jals.length;
+      // répartir les dots horizontalement autour du centre du semestre
+      const xCenter=SX[si];
+      const offsets=n===1?[0]:jals.map((_,k)=>((k-(n-1)/2)*SPREAD));
+
+      jals.forEach((j,ji)=>{
+        const x=xCenter+offsets[ji];
+        // alterner haut/bas en fonction de l'index absolu
+        const above=(ji%2===0);
+        let dotSize,dotStyle;
+        if(j.type==='ip'){
+          dotSize=8;
+          dotStyle=`width:${dotSize}px;height:${dotSize}px;background:${p.colorL};border:2px solid ${p.color};border-radius:2px;transform:rotate(45deg)`;
+        } else if(j.type==='cible'){
+          dotSize=10;
+          dotStyle=`width:${dotSize}px;height:${dotSize}px;background:white;border:2.5px solid ${p.color};border-radius:50%`;
+        } else {
+          dotSize=10;
+          dotStyle=`width:${dotSize}px;height:${dotSize}px;background:${p.color};border:2px solid white;border-radius:50%;box-shadow:0 0 0 1.5px ${p.color}`;
+        }
+        const dotTop=LINE_Y-dotSize/2;
+        const labelTop=above?`${LINE_Y-DOT_R-LABEL_H+2}px`:`${LINE_Y+DOT_R+4}px`;
+
+        dotsHtml+=`
+          <div style="position:absolute;left:${x}%;top:${labelTop};transform:translateX(-50%);width:84px;text-align:center;font-size:7.5px;font-weight:600;line-height:1.22;color:${p.color};pointer-events:none;z-index:3">${j.name}</div>
+          <div style="position:absolute;left:${x}%;top:${dotTop}px;transform:translateX(-50%);z-index:5;cursor:pointer"
+            onclick="event.stopPropagation();openOv('${key}')"
+            onmouseover="this.firstElementChild.style.transform='scale(1.4)${j.type==='ip'?' rotate(45deg)':''}'"
+            onmouseout="this.firstElementChild.style.transform='${j.type==='ip'?'rotate(45deg)':''}'">
+            <div style="${dotStyle};transition:transform .15s"></div>
+          </div>`;
+      });
+    });
+
+    const rowBg=ri%2===0?'white':'var(--cream)';
+    html+=`<div class="tl-prow" style="height:${ROW_H}px;background:${rowBg}" onclick="openOv('${key}')">
+      <div class="tl-plbl" style="border-left:3px solid ${p.color}">
+        <div class="tl-plbl-name" style="color:${p.color}">${p.name}</div>
+        <div class="tl-plbl-sub">${p.sub}</div>
+      </div>
+      <div class="tl-track" style="height:${ROW_H}px;position:relative;overflow:visible">
+        ${gridHtml}${lineHtml}${dotsHtml}
+      </div>
+    </div>`;
+  });
+  document.getElementById('tl-body').innerHTML=html;
+}
+
+// ── SYNTHÈSE BOARD ──
+function renderSynthese(){
+  const tj=S.order.reduce((a,k)=>a+S.piliers[k].jalons.length,0);
+  const tip=S.order.reduce((a,k)=>a+S.piliers[k].jalons.filter(j=>j.type==='ip').length,0);
+  const tcib=S.order.reduce((a,k)=>a+S.piliers[k].jalons.filter(j=>j.type==='cible').length,0);
+
+  // KPI cards — même fond que les encarts pilier dans la table
+  const kpiHtml=`<div class="kpi-strip" style="grid-template-columns:repeat(${S.order.length},1fr)">
+    ${S.order.map(k=>{const p=S.piliers[k];const lbl=PILIER_LABEL_BG[k]||{bg:p.colorL,txt:p.color};const pl=p.jalons.filter(j=>j.type!=='ip').length;return`
+    <div class="kpi-card" style="border-top-color:${p.color};background:${lbl.bg};border-color:transparent" onclick="openOv('${k}')">
+      <div class="kpi-lbl" style="color:${lbl.txt}">${p.name}</div>
+      <div class="kpi-ttl" style="color:${lbl.txt}">${p.sub}</div>
+      <div class="kpi-det" style="color:${lbl.txt};opacity:.7">${recap(k)}</div>
+      <div class="kpi-bar" style="background:rgba(0,0,0,.08)"><div class="kpi-fill" style="width:${Math.round(pl/Math.max(p.jalons.length,1)*100)}%;background:${p.color}"></div></div>
+    </div>`;}).join('')}
+  </div>`;
+
+  let html=`
+  <div class="sum-hero">
+    <div class="sum-hero-left">
+      <div class="sum-eyebrow">Board Presentation · Vue Synthèse · Confidentiel</div>
+      <div class="sum-big-title">Feuille de Route Stratégique 2026–2028</div>
+      <div class="sum-tagline">${S.keyMsg}</div>
+    </div>
+    <div class="sum-stats-strip">
+      <div class="sum-stat"><div class="sum-stat-v">${S.order.length}</div><div class="sum-stat-l">Piliers</div></div>
+      <div class="sum-stat-div"></div>
+      <div class="sum-stat"><div class="sum-stat-v">${tj}</div><div class="sum-stat-l">Jalons</div></div>
+      <div class="sum-stat-div"></div>
+      <div class="sum-stat"><div class="sum-stat-v">${tip}</div><div class="sum-stat-l">Brevets IP</div></div>
+      <div class="sum-stat-div"></div>
+      <div class="sum-stat"><div class="sum-stat-v">${tcib}</div><div class="sum-stat-l">Cibles</div></div>
+    </div>
+  </div>
+  ${kpiHtml}
+  <div class="sum-tc"><table class="sum-table"><thead>
+    <tr>
+      <th style="background:#0c2148;text-align:left;width:164px"></th>
+      <th class="sum-th-year" colspan="2">2026</th>
+      <th class="sum-th-year" colspan="2">2027</th>
+      <th class="sum-th-year" colspan="2">2028</th>
+    </tr>
+    <tr>
+      <th style="background:#0c2148"></th>
+      <th>S1</th><th>S2</th><th>S1</th><th>S2</th><th>S1</th><th>S2</th>
+    </tr>
+  </thead><tbody>`;
+
+  S.order.forEach((k,idx)=>{
+    const p=S.piliers[k];
+    const lbl=PILIER_LABEL_BG[k]||{bg:p.colorL,txt:p.color};
+    const bySem={};SEMS.forEach(s=>bySem[s]=[]);
+    p.jalons.forEach(j=>{if(bySem[j.sem])bySem[j.sem].push(j);});
+    const rowCls=idx%2===0?'sum-row-even':'sum-row-odd';
+
+    html+=`<tr class="${rowCls}">
+      <td class="sum-td-label" style="background:${lbl.bg};border-left-color:${p.color}">
+        <div class="sum-td-label-name" style="color:${lbl.txt}">${p.name}</div>
+        <div class="sum-td-label-sub" style="color:${lbl.txt};opacity:.7">${p.sub}</div>
+      </td>`;
+    SEMS.forEach(s=>{
+      const jals=bySem[s];
+      if(!jals.length){html+=`<td class="sum-td-cell"></td>`;return;}
+      html+=`<td class="sum-td-cell"><div class="sum-chips">`;
+      jals.forEach(j=>{
+        let icon,borderStyle,borderColor,textColor;
+        const bg=lbl.bg;
+        textColor=lbl.txt;
+        if(j.type==='ip'){icon='◆';borderStyle='solid';borderColor=p.color+'88';}
+        else if(j.type==='cible'){icon='○';borderStyle='dashed';borderColor=p.color+'99';}
+        else{icon='●';borderStyle='solid';borderColor=p.color+'55';}
+        html+=`<div class="sc-chip" style="background:${bg};border-color:${borderColor};border-style:${borderStyle};color:${textColor}">
+          <span class="sc-chip-icon">${icon}</span>
+          <span class="sc-chip-text">${j.name}</span>
+        </div>`;
+      });
+      html+=`</div></td>`;
+    });
+    html+=`</tr>`;
+  });
+
+  html+=`</tbody></table></div>
+  <div class="sum-legend">
+    <div class="sum-leg-item"><span class="sum-leg-chip" style="background:#E8ECF5;border-color:#B0BDD0;color:#122D5F">● Planifié</span></div>
+    <div class="sum-leg-item"><span class="sum-leg-chip" style="background:#FFF7EA;border-color:#5A698A;border-style:dashed;color:#122D5F">○ Cible</span></div>
+    <div class="sum-leg-item"><span class="sum-leg-chip" style="background:#EDE8F5;border-color:#A89ED0;color:#3A2F6A">◆ IP / Brevet</span></div>
+    <span style="margin-left:auto;font-size:9px;color:var(--blue3)">The 8 Impact — Confidentiel · Board 2025</span>
+  </div>`;
+
+  document.getElementById('sum-wrap').innerHTML=html;
+}
+
+// ── BACK OFFICE ──
+function boTab(n){
+  document.querySelectorAll('.bo-tab').forEach((t,i)=>t.classList.toggle('active',['order','jalons','messages'][i]===n));
+  document.querySelectorAll('.bo-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('bo-'+n).classList.add('active');
+  if(n==='order')renderDragList();
+  if(n==='jalons')renderJalEditor();
+  if(n==='messages')renderMessages();
+}
+function renderDragList(){
+  if(!S.piliers[curPilier])curPilier=S.order[0];
+  document.getElementById('drag-list').innerHTML=S.order.map(k=>{
+    const p=S.piliers[k];
+    const en=p.name.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    const es=p.sub.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    return`<div class="drag-item" draggable="true" data-key="${k}" style="border-left-color:${p.color}"
+      ondragstart="pdStart(event,'${k}')" ondragover="pdOver(event)" ondrop="pdDrop(event,'${k}')"
+      ondragleave="pdLeave(event)" ondragend="pdEnd()">
+      <div class="drag-handle">⠿</div>
+      <div class="drag-info">
+        <input class="pilier-name-inp" type="text" value="${en}" style="color:${p.color}"
+          oninput="S.piliers['${k}'].name=this.value;autosave()" onchange="renderAll()"
+          onmousedown="event.stopPropagation()" onclick="event.stopPropagation()">
+        <input class="pilier-sub-inp" type="text" value="${es}"
+          oninput="S.piliers['${k}'].sub=this.value;autosave()" onchange="renderAll()"
+          onmousedown="event.stopPropagation()" onclick="event.stopPropagation()">
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+        <span style="font-size:10px;color:var(--blue3)">${p.jalons.length} jalons</span>
+        <button style="background:transparent;border:none;cursor:pointer;color:var(--blue3);font-size:18px;padding:0;line-height:1"
+          onclick="delPilier('${k}')" onmousedown="event.stopPropagation()">×</button>
+      </div>
+    </div>`;}).join('');
+}
+function pdStart(e,k){if(e.target.tagName==='INPUT'||e.target.tagName==='BUTTON'){e.preventDefault();return;}dragSrcPilier=k;setTimeout(()=>e.target.closest('.drag-item')?.classList.add('dragging'),0);}
+function pdOver(e){e.preventDefault();e.target.closest('.drag-item')?.classList.add('drag-over')}
+function pdLeave(e){e.target.closest('.drag-item')?.classList.remove('drag-over')}
+function pdEnd(){document.querySelectorAll('.drag-item').forEach(el=>el.classList.remove('dragging','drag-over'))}
+function pdDrop(e,k){
+  e.preventDefault();pdEnd();if(dragSrcPilier===k)return;
+  const a=S.order.indexOf(dragSrcPilier),b=S.order.indexOf(k);
+  S.order.splice(a,1);S.order.splice(b,0,dragSrcPilier);
+  renderDragList();autosave();toast('Ordre mis à jour ✓');
+}
+function delPilier(k){
+  if(S.order.length<=1){toast('Au moins un pilier requis');return;}
+  if(!confirm(`Supprimer "${S.piliers[k].name}" ?`))return;
+  S.order=S.order.filter(x=>x!==k);delete S.piliers[k];
+  if(curPilier===k)curPilier=S.order[0];
+  renderDragList();autosave();
+}
+function addPilier(){
+  const k='p'+Date.now();
+  S.piliers[k]={name:'Nouveau pilier',sub:'À définir',color:'#5A698A',colorL:'#EEF1F7',jalons:[]};
+  S.order.push(k);renderDragList();autosave();toast('Pilier ajouté');
+}
+function renderJalEditor(){
+  if(!S.piliers[curPilier])curPilier=S.order[0];
+  document.getElementById('psel-row').innerHTML=S.order.map(k=>{const p=S.piliers[k];const a=k===curPilier;return`
+    <div class="psel" style="border-color:${p.color};${a?`background:${p.color};color:white`:`color:${p.color}`}" onclick="selP('${k}')">${p.name}</div>`;}).join('');
+  const p=S.piliers[curPilier];
+  document.getElementById('jal-list').innerHTML=p.jalons.map(j=>`
+    <div class="jal-item" draggable="true" data-jid="${j.id}" style="border-left-color:${p.color}"
+      ondragstart="jdStart(event,'${j.id}')" ondragover="jdOver(event)" ondrop="jdDrop(event,'${j.id}')"
+      ondragleave="jdLeave(event)" ondragend="jdEnd()">
+      <div class="jal-drag">⠿</div>
+      <div class="jal-fields">
+        <div class="jf"><div class="jf-l">Nom</div><input type="text" value="${j.name.replace(/"/g,'&quot;')}" onchange="updJ('${j.id}','name',this.value)"></div>
+        <div class="jf"><div class="jf-l">Semestre</div><select onchange="updJ('${j.id}','sem',this.value)">
+          ${SEMS.map(s=>`<option value="${s}"${j.sem===s?' selected':''}>${s.replace('-',' ')}</option>`).join('')}
+        </select></div>
+        <div class="jf"><div class="jf-l">Type</div><select onchange="updJ('${j.id}','type',this.value)">
+          <option value="planifié"${j.type==='planifié'?' selected':''}>Planifié</option>
+          <option value="cible"${j.type==='cible'?' selected':''}>Cible</option>
+          <option value="ip"${j.type==='ip'?' selected':''}>IP / Brevet</option>
+        </select></div>
+      </div>
+      <button class="jal-del" onclick="delJ('${j.id}')">×</button>
+    </div>`).join('');
+}
+function jdStart(e,id){jalDragSrc=id;setTimeout(()=>e.target.closest('.jal-item')?.classList.add('dragging'),0)}
+function jdOver(e){e.preventDefault();e.target.closest('.jal-item')?.classList.add('drag-over')}
+function jdLeave(e){e.target.closest('.jal-item')?.classList.remove('drag-over')}
+function jdEnd(){document.querySelectorAll('.jal-item').forEach(el=>el.classList.remove('dragging','drag-over'))}
+function jdDrop(e,tid){
+  e.preventDefault();jdEnd();if(jalDragSrc===tid)return;
+  const jals=S.piliers[curPilier].jalons;
+  const a=jals.findIndex(j=>j.id===jalDragSrc),b=jals.findIndex(j=>j.id===tid);
+  const [it]=jals.splice(a,1);jals.splice(b,0,it);
+  renderJalEditor();autosave();
+}
+function selP(k){curPilier=k;renderJalEditor();}
+function updJ(id,f,v){const j=S.piliers[curPilier].jalons.find(x=>x.id===id);if(j){j[f]=v;autosave();}}
+function delJ(id){S.piliers[curPilier].jalons=S.piliers[curPilier].jalons.filter(x=>x.id!==id);renderJalEditor();autosave();toast('Jalon supprimé');}
+function addJalon(){const id=curPilier+Date.now();S.piliers[curPilier].jalons.push({id,name:'Nouveau jalon',sem:'2026-S1',type:'planifié'});renderJalEditor();autosave();}
+function renderMessages(){
+  document.getElementById('bo-msg').value=S.keyMsg;
+  document.getElementById('bo-desc').value=S.desc;
+  document.getElementById('bo-convs').innerHTML=S.convictions.map((c,i)=>`
+    <div class="conv-edit-row">
+      <div class="conv-badge">${i+1}</div>
+      <input class="conv-inp" type="text" value="${c.replace(/"/g,'&quot;')}" oninput="S.convictions[${i}]=this.value;renderGarde();autosave()">
+      <button style="background:transparent;border:none;cursor:pointer;color:var(--blue3);font-size:17px;padding:0 4px" onclick="delConv(${i})">×</button>
+    </div>`).join('');
+}
+function addConv(){S.convictions.push('Nouvelle conviction');renderMessages();renderGarde();autosave();}
+function delConv(i){S.convictions.splice(i,1);renderMessages();renderGarde();autosave();}
+
+function openOv(k){
+  const p=S.piliers[k];const bg={};SEMS.forEach(s=>bg[s]=[]);
+  p.jalons.forEach(j=>{if(bg[j.sem])bg[j.sem].push(j);});
+  let h=`<div style="width:9px;height:9px;border-radius:50%;background:${p.color};display:inline-block;margin-right:5px"></div>
+    <span style="font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:${p.color}">${p.name}</span>
+    <div class="ov-title">${p.name}</div><div class="ov-sub">${p.sub}</div>`;
+  SEMS.forEach(s=>{if(!bg[s].length)return;
+    h+=`<div class="ov-ph"><div class="ov-sem">${s.replace('-',' ')}</div>
+      ${bg[s].map(j=>`<div class="ov-item">${j.type==='ip'?'◆ ':'— '}${j.name}</div>`).join('')}</div>`;});
+  document.getElementById('ov-content').innerHTML=h;
+  document.getElementById('overlay').classList.add('open');
+}
+function closeOv(){document.getElementById('overlay').classList.remove('open')}
+
+const VIEWS=['g','sum'];
+function showView(v){
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nbtn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('v'+v).classList.add('active');
+  document.querySelectorAll('.nbtn')[VIEWS.indexOf(v)].classList.add('active');
+  if(v==='sum')renderSynthese();
+}
+function saveAll(){return;/* ro */
+
+  renderAll();persist();
+  const act=document.querySelector('.bo-tab.active');
+  if(act){const n=act.textContent.includes('Ordre')?'order':act.textContent.includes('Jalon')?'jalons':'messages';boTab(n);}
+  toast('Sauvegardé ✓');
+}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
+</script>
+</body>
+</html>
